@@ -36,7 +36,7 @@ resource "aws_iam_policy" "this" {
     Version = each.value.version
     Statement = [
       for statement in each.value.statements : {
-        Sid      = statement.sid
+        Sid      = statement.sid != null ? statement.sid : null
         Effect   = statement.effect
         Action   = statement.actions
         Resource = statement.resources
