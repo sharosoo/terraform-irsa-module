@@ -39,7 +39,7 @@ resource "aws_iam_policy" "this" {
         Sid      = statement.sid
         Effect   = statement.effect
         Action   = statement.actions
-        Resource = statement.resource
+        Resource = statement.resources
         Condition = statement.condition != null ? {
           StringEquals = statement.condition.string_equals != null ? statement.condition.string_equals : null,
           StringLike   = statement.condition.string_like != null ? statement.condition.string_like : null

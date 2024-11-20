@@ -23,7 +23,7 @@ provider "aws" {
 
 module "example_irsa" {
   source  = "sharosoo/module/irsa"
-  version = "0.0.3"
+  version = "0.0.4"
 
   cluster_name   = "<your-cluster-name>"
   policy_arns    = [
@@ -41,16 +41,16 @@ module "example_irsa" {
       version = "2012-10-17"
       statements = [
         {
-          sid      = "AllowSpecificAction"
-          effect   = "Allow"
-          actions  = ["ec2:DescribeInstances"]
-          resource = "*"
+          sid       = "AllowSpecificAction"
+          effect    = "Allow"
+          actions   = ["ec2:DescribeInstances"]
+          resources = ["*"]
         },
         {
-          sid    = "DenySpecificAction"
-          effect = "Deny"
-          actions = ["ec2:TerminateInstances"]
-          resource = "*"
+          sid       = "DenySpecificAction"
+          effect    = "Deny"
+          actions   = ["ec2:TerminateInstances"]
+          resources = ["*"]
         }
       ]
     }
@@ -66,11 +66,11 @@ module "example_irsa" {
 | Name              | Description                                                                                 | Type     | Default | Required |
 |-------------------|---------------------------------------------------------------------------------------------|----------|---------|----------|
 | `cluster_name`    | The name of the Kubernetes cluster where the IRSA role will be used.                        | `string` | N/A     | Yes      |
-| `policy_arns`     | A list of AWS managed policies to attach to the role.                                       | `list`   | `[]`    | Yes      |
+| `policy_arns`     | A list of AWS managed policies to attach to the role.                                       | `list`   | `[]`    | No       |
 | `irsa_role_name`  | The name of the IAM role to be created.                                                     | `string` | N/A     | Yes      |
 | `service_account` | A map containing `name` and `namespace` for the Kubernetes service account to associate.    | `map`    | N/A     | Yes      |
 | `policies`        | A list of custom inline policies to attach to the IAM role, with statements for permissions.| `list`   | `[]`    | No       |
-| `providers`       | AWS providers, allowing region aliasing for flexibility.                                    | `map`    | N/A     | Yes      |
+| `providers`       | AWS providers, allowing region aliasing for flexibility.                                    | `map`    | N/A     | No       |
 
 ## Outputs
 

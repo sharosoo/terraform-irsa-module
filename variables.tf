@@ -38,9 +38,9 @@ variable "policies" {
                   }
                 )
               )
-              effect   = string
-              actions  = list(string)
-              resource = string
+              effect    = string
+              actions   = list(string)
+              resources = list(string)
             }
           )
         )
@@ -48,9 +48,11 @@ variable "policies" {
     )
   )
   description = "The policies to be created and attached to the IRSA role"
+  default     = []
 }
 
 variable "policy_arns" {
   type        = list(string)
   description = "The policy arns attached to the IRSA role"
+  default     = []
 }

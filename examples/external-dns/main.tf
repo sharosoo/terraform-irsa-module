@@ -1,13 +1,13 @@
 provider "aws" {
   alias  = "cluster_region"
-  region = "<your-cluster-region>"
+  region = "ap-northeast-1"
 }
 
 module "external_dns_irsa" {
   source  = "sharosoo/module/irsa"
-  version = "0.0.3"
+  version = "0.0.4"
 
-  cluster_name = "<your-cluster-name>"
+  cluster_name = "turing-cluster"
   policy_arns = [
     # "arn:aws:iam::aws:policy/AmazonRoute53FullAccess"
   ]
@@ -22,10 +22,10 @@ module "external_dns_irsa" {
       version = "2012-10-17"
       statements = [
         {
-          sid      = "AllowRoute53Changes"
-          effect   = "Allow"
-          actions  = ["route53:ChangeResourceRecordSets"]
-          resource = "arn:aws:route53:::hostedzone/*"
+          sid       = "AllowRoute53Changes"
+          effect    = "Allow"
+          actions   = ["route53:ChangeResourceRecordSets"]
+          resources = ["arn:aws:route53:::hostedzone/*"]
         },
         {
           sid    = "AllowRoute53ReadAccess"
@@ -35,7 +35,7 @@ module "external_dns_irsa" {
             "route53:ListResourceRecordSets",
             "route53:ListTagsForResource"
           ]
-          resource = "*"
+          resources = ["*"]
         }
       ]
     }
