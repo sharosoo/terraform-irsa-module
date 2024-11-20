@@ -25,7 +25,7 @@ variable "policies" {
         statements = list(
           object(
             {
-              sid = optional(string, "")
+              sid = optional(string, null)
               condition = optional(
                 object(
                   {
