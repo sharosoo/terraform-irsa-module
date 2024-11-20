@@ -29,18 +29,18 @@ variable "policies" {
               condition = optional(
                 object(
                   {
-                    string_equals = optional(
-                      map(string)
-                    )
-                    string_like = optional(
-                      map(string)
-                    )
+                    string_equals = optional(map(string))
+                    string_like   = optional(map(string))
                   }
                 )
               )
-              effect    = string
-              actions   = list(string)
-              resources = list(string)
+              effect         = string
+              actions        = optional(list(string))
+              not_actions    = optional(list(string))
+              resources      = optional(list(string))
+              not_resources  = optional(list(string))
+              principals     = optional(map(list(string)))
+              not_principals = optional(map(list(string)))
             }
           )
         )
