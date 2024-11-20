@@ -1,0 +1,28 @@
+### Terraform ###
+**/.terraform/*
+
+*.tfstate
+*.tfstate.*
+
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+.terraformrc
+terraform.rc
+.terraform.lock.hcl
+
+crash.log
+crash.*.log
+
+### VisualStudioCode ###
+.vscode/*
+
+.history/
+*.vsix
+
+.history
+.ionide
