@@ -33,22 +33,19 @@ resource "aws_iam_policy" "this" {
   name = each.value.name
 
   policy = jsonencode({
-    Version = each.value.version
+    Version = each.value.version,
     Statement = [
-      for statement in each.value.statements : {
-        Sid          = statement.sid != null ? statement.sid : null
-        Effect       = statement.effect
-        Action       = statement.actions != null ? statement.actions : null
-        NotAction    = statement.not_actions != null ? statement.not_actions : null
-        Resource     = statement.resources != null ? statement.resources : null
-        NotResource  = statement.not_resources != null ? statement.not_resources : null
-        Principal    = statement.principals != null ? statement.principals : null
-        NotPrincipal = statement.not_principals != null ? statement.not_principals : null
-        Condition = statement.condition != null ? {
-          StringEquals = statement.condition.string_equals != null ? statement.condition.string_equals : null,
-          StringLike   = statement.condition.string_like != null ? statement.condition.string_like : null
-        } : null
-      }
+      for statement in each.value.statements : merge(
+        statement.not_actions != null ? { NotAction : statement.not_actions } : {},
+        statement.resources != null ? { Resource : statement.resources } : {},
+        statement.not_resources != null ? { NotResource : statement.not_resources } : {},
+        statement.principals != null ? { Principal : statement.principals } : {},
+        statement.effect != null ? { Effect : statement.effect } : {},
+        statement.actions != null ? { Action : statement.actions } : {},
+        statement.not_principals != null ? { NotPrincipal : statement.not_principals } : {},
+        statement.sid != null ? { Sid = statement.sid } : {},
+        statement.condition != null ? { Condition = statement.condition } : {}
+      )
     ]
   })
 }
