@@ -23,7 +23,7 @@ provider "aws" {
 
 module "example_irsa" {
   source  = "sharosoo/module/irsa"
-  version = "0.2.0"
+  version = "0.2.1"
 
   cluster_name   = "<your-cluster-name>"
   policy_arns    = [
